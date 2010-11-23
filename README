@@ -1,0 +1,91 @@
+================================================================================
+                               AsbestOS Hybrid Loader README
+================================================================================
+
+== Introduction Requirements==
+This a AsbestOS Linux bootloader that runs off of the PS3 Lv-2 exploit. 
+It is designed to boot on PS3 systems running System Software version 3.41, 
+though it could be adapted to earlier versions. Linux runs on the GameOS partition, 
+thus having the same access to hardware that GameOS has.
+This code is experimental and is intended for those who have a 16KB USB dongle 
+and no possibility to launch asbestOS in other form.
+It also requires you to be using Hermes' 4vB payload.
+to compile is best to be using linux, as i have not tested on windows 
+
+== Building ==
+
+The PS3DEV environment variable needs Setup
+
+$  mkdir ~/ps3dev               // I Find in my user drive i have no permison problems
+$  mkdir ~/ps3dev
+Add these to the end of you ~/.bashrc file
+
+  export PS3DEV=~/ps3dev
+  export PATH=$PATH:$PS3DEV/bin
+  export PATH=$PATH:$PS3DEV/ppu/bin
+  export PATH=$PATH:$PS3DEV/spu/bin
+  export PSL1GHT=~/pslight
+
+$ git clone git://github.com/HACKERCHANNEL/ps3chain.git ~/ps3chain
+
+$ git clone git://github.com/HACKERCHANNEL/PSL1GHT.git  ~/PSl1GHT
+
+Then Read the readme under both those drives and compile how they lay out.
+rember we have already set the PS3DEV and PSL1GHT vars
+
+
+== Usage ==
+
+First compile AsbestOS Loader get a compatible USB exploit mechanism. 
+You should also connect your PS3 and PC to a network not the internet.
+(they need to be in the same broadcast domain also) 
+
+P3
+	Do nothing but plug into your router
+PC
+	there is where everyone seems to have the trubble.
+	i have created a easy setup guide for the NFS share.
+	Read HowToNFS.
+	if you cant do this becuase your in windows run Virtualbox
+	with your fav linux. bridge the network cards under VM setup.
+	and then continue with the Guide.
+
+
+Transfer the AsbestOSHybridLoader.pkg (that you compiled )
+to the root of a thumb drive
+At this point if you have edit you own dtbImage.ps3.bin
+(marcan's kernel image included under xdata) 
+Copy them to the root of you usb thumb drive.
+
+
+Fire off the exploit device, turn on your PS3 using power followed by eject within 0.2 seconds . 
+
+Install the pkg AsbestOSHybribLoader.pkg. 
+OK now find the penguin and run the Program.
+\
+Ok the scary part the screen goes black.it....Wait for it....If you get anything at all, congratulations, Kernel is running.
+At this point, if you have any issues, the problem should be fairly apparent from the messages (Kernel panic NFS not mounted).
+If not then there could be a cupple things wrong. There has been reports that there is a issuse with SD tvs. 
+I can not comfirm because i do not own a tv.I happen to run mine to a Monitor with a HDMI > DVI cable.
+There are also been reports of it not working on Phat PS3s. as im not sure about this (one friend told me it worked on his phat),
+
+
+Once the PS3 is up and running and your NFS share.you should now have a Working AsbestOS. 
+to find out more about AsbestOS got to marcan's blog http://marcansoft.com/blog/
+You Can Contact me at my blog http://margatz85.blogspot.com/
+
+
+And i want to say thanks to Ceal,Marcan32,KaKaRoToKS,Hermes,ooPo,AerialX,Mathieulh,Aaron (the guy who started PSL1GHT)
+and who ever i missed. with out any of yall i wont have been able to do what i do. 
+Thats have fun and use my toys the way i want
+
+MrGatz85
+
+== ToDo ==
+spell check every thing (ROFL i cant spell sorry)
+Keep up with the latest kernel and patchs.( We will have HDD support soon)
+
+
+
+
+

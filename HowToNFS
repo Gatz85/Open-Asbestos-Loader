@@ -1,0 +1,55 @@
+//HOWTO: NFS Server/Client
+
+
+//Install NFS Server Support
+//at the terminal type
+sudo apt-get install sysvinit-utils nfs-kernel-server nfs-common portmap
+//When configuring portmap do =not= bind loopback. If you do you can either edit /etc/default/portmap by hand or run:
+sudo dpkg-reconfigure portmap
+sudo service portmap restart
+//This is where we put the Linux FileSystem
+sudo mkdir /ps3root
+//Editing /etc/exports
+//the /etc/exports file is used for creating a share on the NFS server
+
+//invoke your favorite text editor under root 
+
+gksudo gedit /etc/exports 
+//or
+sudo vi /etc/exports
+
+//Here is example of what you should add to your /etc/exports
+
+//For Full Read Write Permissions allowing any computer from 192.168.1.1 through 192.168.1.255
+ /ps3root 192.168.0/255.0/255(rw,no_subtree_check,no_root_squash,async)
+
+
+//Also aftter making changes to /etc/exports in a terminal you must type
+sudo exportfs -a
+sudo service nfs-kernel-server restart
+// This is what is set in defualt kernal for the loader
+sudo ifconfig YOURDEVICE 192.168.2.7
+
+
+//Install NFS client support
+sudo apt-get install portmap nfs-common
+
+//Mounting manually and Test
+//Example to mount server.mydomain.com:/files to /files. In this example server.mydomain.com is the name of the server containing the nfs share, and //files is the name of the share on the nfs server
+
+//The mount point /files must first exist on the client machine. 
+cd /
+sudo mkdir files
+
+//to mount the share from a terminal type
+//Your IP and mount dir is based on what your dtbImage.ps3.bin says it is(defualt IP is 192.168.2.100 and mount is /ps3root.
+//dtbImage.ps3.bin can be in two places /dev_usb0/ or /dev_hdd0/game/LOAD00000/USRDIR. usb is your custom
+//OPen with a Hex editor search for the text "HEX" just above is where you need to edit. make sure it keeps its lentgh!!
+//Also you can edit your mount here
+sudo mount 192.168.2.7:/ps3root /files
+
+//Note you may need to restart above services:
+sudo /etc/init.d/portmap restart
+sudo /etc/init.d/nfs-common restart
+
+//Orignail is at http://ubuntuforums.org/showthread.php?t=249889
